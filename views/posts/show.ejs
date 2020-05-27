@@ -1,0 +1,70 @@
+<%- include('../partials/header') %> 
+<%- include('../partials/sidebar') %>
+
+<div id="post-list" class="col">
+  <div class="card mb-1">
+    <div class="row no-gutters align-items-center">
+      <div class="col-2">
+        <div class="row justify-content-center">
+          <img src="<%= post.image %>" class="card-img" alt="..." />
+        </div>
+      </div>
+      <div class="col">
+        <div class="card-body">
+          <h5 class="card-title"><%= post.title %></h5>
+          <p class="card-text"><%= post.body %></p>
+          <p class="card-text">
+            <small class="text-muted">
+                <p>
+                    Posted by <%= post.author %> | Last updated 3 mins ago
+                </p>
+                <p>
+                    <%= post.replies.length %> replies | <%= post.likes %> likes | <%= post.dislikes %> dislikes
+                </p>
+            </small>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p>
+      <h5>Replies</h5>
+      <hr>
+    <form action="/communities/<%= communityId %>/posts/<%= post._id %>" method="POST">
+        <input type="text" name="reply[author]" placeholder="author">
+        <input type="text" name="reply[body]" placeholder="body">
+        <button class="btn btn-sm btn-primary">Reply</button>
+    </form>
+  </p>
+
+  <% post.replies.forEach(parent => { %>
+    <div class="card mb-1">
+        <div class="row no-gutters align-items-center">
+          <div class="col-2">
+            <div class="row justify-content-center">
+              <img src="<%= parent.image %>" class="card-img" alt="..." />
+            </div>
+          </div>
+          <div class="col">
+            <div class="card-body">
+              <p class="card-text"><%= parent.body %></p>
+              <p class="card-text">
+                <small class="text-muted">
+                    <p>
+                        <p><%= parent.replies.length %></p>
+                        Posted by <%= parent.author %> | <%= parent.likes %> likes | <%= parent.dislikes %> dislikes | Last updated 3 mins ago
+                    </p>
+                </small>
+                <form action="/communities/<%= communityId %>/posts/<%= parent._id %>" method="POST">
+                    <input type="text" name="reply[author]" placeholder="author">
+                    <input type="text" name="reply[body]" placeholder="body">
+                    <button class="btn btn-sm btn-primary">Reply</button>
+                </form>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% }); %>
+</div>

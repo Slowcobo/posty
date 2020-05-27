@@ -1,0 +1,18 @@
+<%- include('../partials/header') %>
+
+<div class="col">
+    <h1>Create a Community</h1>
+
+    <form action="/communities" method="POST">
+        <div class="form-group">
+            <input type="text" name="community[name]" placeholder="Community Name">
+        </div>
+        <div class="form-group">
+            <input type="text" name="community[description]" placeholder="Description">
+        </div>
+        <div class="form-group">
+            <input type="text" name="community[image]" placeholder="Community Image">
+        </div>
+        <button class="btn btn-primary">Create</button>
+    </form>
+</div>
