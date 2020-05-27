@@ -1,5 +1,6 @@
 const express = require("express"),
   bodyParser = require("body-parser"),
+  methodOverride = require("method-override"),
   mongoose = require("mongoose"),
   Community = require("./models/community"),
   Post = require("./models/post");
@@ -12,8 +13,10 @@ const app = express();
 mongoose.connect("mongodb://localhost/postr", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
+  useFindAndModify: false,
 });
 
+app.use(methodOverride("_method"));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + "/public"));
 app.set("view engine", "ejs");

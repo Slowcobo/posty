@@ -36,7 +36,7 @@ router.post("/", (req, res) => {
 
 router.get("/:post_id", (req, res) => {
   Post.findById(req.params.post_id)
-    .populate({ path: "replies", populate: { path: "replies" } })
+    .populate("replies")
     .exec((err, foundPost) => {
       if (err) {
         console.log(err);
@@ -56,7 +56,6 @@ router.post("/:post_id", (req, res) => {
       console.log(err);
       res.redirect("back");
     } else {
-      console.log(foundPost);
       Post.create(req.body.reply, (err, newReply) => {
         if (err) {
           console.log(err);
@@ -66,6 +65,50 @@ router.post("/:post_id", (req, res) => {
         }
         res.redirect("back");
       });
+    }
+  });
+});
+
+router.get("/:post_id/edit", (req, res) => {
+  Post.findById(req.params.post_id, (err, foundPost) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.render("posts/edit", {
+        communityId: req.params.community_id,
+        post: foundPost,
+      });
+    }
+  });
+});
+
+router.put("/:post_id", (req, res) => {
+  Post.findByIdAndUpdate(
+    req.params.post_id,
+    req.body.post,
+    (err, foundPost) => {
+      if (err) {
+        console.log(err);
+        res.redirect("back");
+      } else {
+        res.redirect(
+          "/communities/" +
+            req.params.community_id +
+            "/posts/" +
+            req.params.post_id
+        );
+      }
+    }
+  );
+});
+
+router.delete("/:post_id", (req, res) => {
+  Post.findByIdAndDelete(req.params.post_id, (err, foundPost) => {
+    if (err) {
+      console.log(err);
+      res.redirect("back");
+    } else {
+      res.redirect("/communities/" + req.params.community_id);
     }
   });
 });
