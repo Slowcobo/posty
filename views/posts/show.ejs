@@ -6,7 +6,7 @@
     <div class="row no-gutters align-items-center">
       <div class="col-2">
         <div class="row justify-content-center">
-          <img src="<%= post.image %>" class="card-img" alt="..." />
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Solid_blue.svg/225px-Solid_blue.svg.png" class="card-img" alt="..." />
         </div>
       </div>
       <div class="col">
@@ -35,35 +35,31 @@
       <h5>Replies</h5>
       <hr>
     <form action="/communities/<%= communityId %>/posts/<%= post._id %>" method="POST">
-        <input type="text" name="reply[author]" placeholder="author">
-        <input type="text" name="reply[body]" placeholder="body">
+        <input type="text" name="comment[author]" placeholder="author">
+        <input type="text" name="comment[body]" placeholder="body">
         <button class="btn btn-sm btn-primary">Reply</button>
     </form>
   </p>
 
-  <% post.replies.forEach(parent => { %>
+  <% post.replies.forEach(comment => { %>
     <div class="card mb-1">
         <div class="row no-gutters align-items-center">
           <div class="col-2">
             <div class="row justify-content-center">
-              <img src="<%= parent.image %>" class="card-img" alt="..." />
+              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Solid_blue.svg/225px-Solid_blue.svg.png" class="card-img" alt="..." />
             </div>
           </div>
           <div class="col">
             <div class="card-body">
               <p class="card-text">
                 <small class="text-muted">
-                        Posted by <%= parent.author %> | <%= parent.likes %> likes | <%= parent.dislikes %> dislikes | Last updated 3 mins ago
+                        Posted by <%= comment.author %> | <%= comment.likes %> likes | <%= comment.dislikes %> dislikes | Last updated 3 mins ago
                 </small>
               </p>
-              <p class="card-text"><%= parent.body %></p>
-              <form class="action-form" action="/communities/<%= communityId %>/posts/<%= parent._id %>" method="POST">
-                <!-- <input type="text" name="reply[author]" placeholder="author">
-                <input type="text" name="reply[body]" placeholder="body"> -->
-                <button class="btn btn-sm btn-primary">Reply</button>
-            </form>
-            <a href="#" class="btn btn-sm btn-warning">Edit</a>
-            <form class="action-form" action="#" method="POST">
+              <p class="card-text"><%= comment.body %></p>
+              <!--TODO: Include reply form here-->
+            <a href="/communities/<%= communityId %>/posts/<%= post._id %>/<%= comment._id %>/edit" class="btn btn-sm btn-warning">Edit</a>
+            <form class="action-form" action="/communities/<%= communityId %>/posts/<%= post._id %>/<%= comment._id %>?_method=DELETE" method="POST">
               <button class="btn btn-sm btn-danger">Delete</button>
             </form>
             </div>

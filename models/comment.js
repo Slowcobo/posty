@@ -1,8 +1,7 @@
 const mongoose = require("mongoose");
 
-const postSchema = new mongoose.Schema({
+const commentSchema = new mongoose.Schema({
   author: String,
-  title: String,
   body: String,
   replies: [
     {
@@ -14,4 +13,4 @@ const postSchema = new mongoose.Schema({
   dislikes: { type: Number, default: 0 },
 });
 
-module.exports = mongoose.model("Post", postSchema);
+module.exports = mongoose.model("Comment", commentSchema);

@@ -3,10 +3,12 @@ const express = require("express"),
   methodOverride = require("method-override"),
   mongoose = require("mongoose"),
   Community = require("./models/community"),
-  Post = require("./models/post");
+  Post = require("./models/post"),
+  Comment = require("./models/comment");
 
 const communityRoutes = require("./routes/communities"),
-  postRoutes = require("./routes/posts");
+  postRoutes = require("./routes/posts"),
+  commentRoutes = require("./routes/comments");
 
 const app = express();
 
@@ -23,6 +25,7 @@ app.set("view engine", "ejs");
 
 app.use("/communities", communityRoutes);
 app.use("/communities/:community_id/posts", postRoutes);
+app.use("/communities/:community_id/posts/:post_id/:comment_id", commentRoutes);
 
 app.get("/", (req, res) => {
   res.send("This is the index page.");

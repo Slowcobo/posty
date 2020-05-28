@@ -3,6 +3,7 @@ const router = express.Router({ mergeParams: true });
 
 const Community = require("../models/community");
 const Post = require("../models/post");
+const Comment = require("../models/comment");
 
 router.get("/new", (req, res) => {
   Community.findById(req.params.community_id, (err, foundCommunity) => {
@@ -28,7 +29,7 @@ router.post("/", (req, res) => {
           foundCommunity.posts.push(newPost);
           foundCommunity.save();
         }
-        res.redirect("/communities/" + foundCommunity._id);
+        res.redirect(`/communities/${foundCommunity._id}`);
       });
     }
   });
@@ -48,25 +49,6 @@ router.get("/:post_id", (req, res) => {
         });
       }
     });
-});
-
-router.post("/:post_id", (req, res) => {
-  Post.findById(req.params.post_id, (err, foundPost) => {
-    if (err) {
-      console.log(err);
-      res.redirect("back");
-    } else {
-      Post.create(req.body.reply, (err, newReply) => {
-        if (err) {
-          console.log(err);
-        } else {
-          foundPost.replies.push(newReply);
-          foundPost.save();
-        }
-        res.redirect("back");
-      });
-    }
-  });
 });
 
 router.get("/:post_id/edit", (req, res) => {
@@ -92,10 +74,7 @@ router.put("/:post_id", (req, res) => {
         res.redirect("back");
       } else {
         res.redirect(
-          "/communities/" +
-            req.params.community_id +
-            "/posts/" +
-            req.params.post_id
+          `/communities/${req.params.community_id}/posts/${req.params.post_id}`
         );
       }
     }
@@ -108,7 +87,26 @@ router.delete("/:post_id", (req, res) => {
       console.log(err);
       res.redirect("back");
     } else {
-      res.redirect("/communities/" + req.params.community_id);
+      res.redirect(`/communities/${req.params.community_id}`);
+    }
+  });
+});
+
+router.post("/:post_id", (req, res) => {
+  Post.findById(req.params.post_id, (err, foundPost) => {
+    if (err) {
+      console.log(err);
+      res.redirect("back");
+    } else {
+      Comment.create(req.body.comment, (err, newComment) => {
+        if (err) {
+          console.log(err);
+        } else {
+          foundPost.replies.push(newComment);
+          foundPost.save();
+        }
+        res.redirect("back");
+      });
     }
   });
 });
