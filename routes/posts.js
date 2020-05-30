@@ -29,7 +29,7 @@ router.post("/", (req, res) => {
           foundCommunity.posts.push(newPost);
           foundCommunity.save();
         }
-        res.redirect(`/communities/${foundCommunity._id}`);
+        res.redirect(`/communities/${foundCommunity._id}/posts/${newPost._id}`);
       });
     }
   });
