@@ -6,7 +6,7 @@
     <div class="row no-gutters align-items-center">
       <div class="col-2">
         <div class="row justify-content-center">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Solid_blue.svg/225px-Solid_blue.svg.png" class="card-img" alt="..." />
+          <img src="<%= post.author.avatar %>" class="card-img" alt="..." />
         </div>
       </div>
       <div class="col">
@@ -14,7 +14,7 @@
           <h5 class="card-title"><%= post.title %></h5>
           <p class="card-text">
             <small class="text-muted">
-                    Posted by <%= post.author %> | Last updated 3 mins ago
+                    Posted by <a href="/user/<%= post.author.id %>"><%= post.author.username %></a> | Last updated 3 mins ago
                 <p>
                     <%= post.replies.length %> replies | <%= post.likes %> likes | <%= post.dislikes %> dislikes
                 </p>
@@ -35,7 +35,6 @@
       <h5>Replies</h5>
       <hr>
     <form action="/communities/<%= communityId %>/posts/<%= post._id %>" method="POST">
-        <input type="text" name="comment[author]" placeholder="author">
         <input type="text" name="comment[body]" placeholder="body">
         <button class="btn btn-sm btn-primary">Reply</button>
     </form>
@@ -46,14 +45,14 @@
         <div class="row no-gutters align-items-center">
           <div class="col-2">
             <div class="row justify-content-center">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Solid_blue.svg/225px-Solid_blue.svg.png" class="card-img" alt="..." />
+              <img src="<%= comment.author.avatar %>" class="card-img" alt="..." />
             </div>
           </div>
           <div class="col">
             <div class="card-body">
               <p class="card-text">
                 <small class="text-muted">
-                        Posted by <%= comment.author %> | <%= comment.likes %> likes | <%= comment.dislikes %> dislikes | Last updated 3 mins ago
+                        Posted by <a href="/user/<%= comment.author.id %>"><%= comment.author.username %></a> | <%= comment.likes %> likes | <%= comment.dislikes %> dislikes | Last updated 3 mins ago
                 </small>
               </p>
               <p class="card-text"><%= comment.body %></p>

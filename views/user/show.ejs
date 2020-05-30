@@ -1,0 +1,26 @@
+<%- include('../partials/header') %> <%- include('../partials/sidebar') %>
+
+<div id="post-list" class="col">
+  <div class="card mb-1">
+    <div class="row no-gutters align-items-center">
+      <div class="col-2">
+        <div class="row justify-content-center">
+          <img src="<%= user.avatar %>" class="card-img" alt="..." />
+        </div>
+      </div>
+      <div class="col">
+        <div class="card-body">
+          <h5 class="card-title"><%= user.username %></h5>
+          <p class="card-text">
+            <small class="text-muted">
+              <%= user.bio %>
+            </small>
+          </p>
+          <a href="/user/<%= user._id %>/edit" class="btn btn-warning"
+            >Edit Profile</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

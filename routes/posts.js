@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router({ mergeParams: true });
 
+const User = require("../models/user");
 const Community = require("../models/community");
 const Post = require("../models/post");
 const Comment = require("../models/comment");
@@ -26,6 +27,8 @@ router.post("/", (req, res) => {
         if (err) {
           console.log(err);
         } else {
+          newPost.author = req.user;
+          newPost.save();
           foundCommunity.posts.push(newPost);
           foundCommunity.save();
         }
@@ -37,7 +40,13 @@ router.post("/", (req, res) => {
 
 router.get("/:post_id", (req, res) => {
   Post.findById(req.params.post_id)
-    .populate("replies")
+    .populate({
+      path: "replies",
+      populate: {
+        path: "author",
+      },
+    })
+    .populate("author")
     .exec((err, foundPost) => {
       if (err) {
         console.log(err);
@@ -102,6 +111,8 @@ router.post("/:post_id", (req, res) => {
         if (err) {
           console.log(err);
         } else {
+          newComment.author = req.user;
+          newComment.save();
           foundPost.replies.push(newComment);
           foundPost.save();
         }

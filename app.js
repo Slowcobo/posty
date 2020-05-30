@@ -9,7 +9,8 @@ const express = require("express"),
 const communityRoutes = require("./routes/communities"),
   postRoutes = require("./routes/posts"),
   commentRoutes = require("./routes/comments"),
-  indexRoutes = require("./routes/index");
+  indexRoutes = require("./routes/index"),
+  userRoutes = require("./routes/users");
 
 const app = express();
 
@@ -38,13 +39,13 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-
 app.use((req, res, next) => {
   res.locals.currentUser = req.user;
   next();
 });
 
 app.use(indexRoutes);
+app.use("/user", userRoutes);
 app.use("/communities", communityRoutes);
 app.use("/communities/:community_id/posts", postRoutes);
 app.use("/communities/:community_id/posts/:post_id/:comment_id", commentRoutes);
