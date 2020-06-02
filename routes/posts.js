@@ -5,8 +5,9 @@ const User = require("../models/user");
 const Community = require("../models/community");
 const Post = require("../models/post");
 const Comment = require("../models/comment");
+const middleware = require("../middleware");
 
-router.get("/new", (req, res) => {
+router.get("/new", middleware.isLoggedIn, (req, res) => {
   Community.findById(req.params.community_id, (err, foundCommunity) => {
     if (err) {
       console.log(err);
@@ -17,7 +18,7 @@ router.get("/new", (req, res) => {
   });
 });
 
-router.post("/", (req, res) => {
+router.post("/", middleware.isLoggedIn, (req, res) => {
   Community.findById(req.params.community_id, (err, foundCommunity) => {
     if (err) {
       console.log(err);
@@ -38,7 +39,7 @@ router.post("/", (req, res) => {
   });
 });
 
-router.get("/:post_id", (req, res) => {
+router.get("/:post_id", middleware.isLoggedIn, (req, res) => {
   Post.findById(req.params.post_id)
     .populate({
       path: "replies",
@@ -60,7 +61,7 @@ router.get("/:post_id", (req, res) => {
     });
 });
 
-router.get("/:post_id/edit", (req, res) => {
+router.get("/:post_id/edit", middleware.checkPostOwnership, (req, res) => {
   Post.findById(req.params.post_id, (err, foundPost) => {
     if (err) {
       console.log(err);
@@ -73,7 +74,7 @@ router.get("/:post_id/edit", (req, res) => {
   });
 });
 
-router.put("/:post_id", (req, res) => {
+router.put("/:post_id", middleware.checkCommunityOwnership, (req, res) => {
   Post.findByIdAndUpdate(
     req.params.post_id,
     req.body.post,
@@ -90,7 +91,7 @@ router.put("/:post_id", (req, res) => {
   );
 });
 
-router.delete("/:post_id", (req, res) => {
+router.delete("/:post_id", middleware.checkPostOwnership, (req, res) => {
   Post.findByIdAndDelete(req.params.post_id, (err, foundPost) => {
     if (err) {
       console.log(err);
@@ -101,7 +102,7 @@ router.delete("/:post_id", (req, res) => {
   });
 });
 
-router.post("/:post_id", (req, res) => {
+router.post("/:post_id", middleware.isLoggedIn, (req, res) => {
   Post.findById(req.params.post_id, (err, foundPost) => {
     if (err) {
       console.log(err);

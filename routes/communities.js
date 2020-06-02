@@ -1,8 +1,9 @@
 const express = require("express");
 const router = express.Router({ mergeParams: true });
 const Community = require("../models/community");
+const middleware = require("../middleware");
 
-router.get("/", (req, res) => {
+router.get("/", middleware.isLoggedIn, (req, res) => {
   Community.find({}, (err, communities) => {
     if (err) {
       console.log(err);
@@ -12,11 +13,11 @@ router.get("/", (req, res) => {
   });
 });
 
-router.get("/new", (req, res) => {
+router.get("/new", middleware.isLoggedIn, (req, res) => {
   res.render("communities/new");
 });
 
-router.post("/", (req, res) => {
+router.post("/", middleware.isLoggedIn, (req, res) => {
   const owner = {
     id: req.user._id,
     username: req.user.username,
@@ -33,7 +34,7 @@ router.post("/", (req, res) => {
   });
 });
 
-router.get("/:community_id", (req, res) => {
+router.get("/:community_id", middleware.isLoggedIn, (req, res) => {
   Community.findById(req.params.community_id)
     .populate({
       path: "posts",
@@ -51,24 +52,27 @@ router.get("/:community_id", (req, res) => {
     });
 });
 
-router.get("/:community_id/edit", (req, res) => {
-  Community.findById(req.params.community_id, (err, foundCommunity) => {
-    if (err) {
-      console.log(err);
-      res.redirect("back");
-    } else {
-      res.render("communities/edit", { community: foundCommunity });
-    }
-  });
-});
+router.get(
+  "/:community_id/edit",
+  middleware.checkCommunityOwnership,
+  (req, res) => {
+    Community.findById(req.params.community_id, (err, foundCommunity) => {
+      if (err) {
+        console.log(err);
+        res.redirect("back");
+      } else {
+        res.render("communities/edit", { community: foundCommunity });
+      }
+    });
+  }
+);
 
-router.put("/:community_id", (req, res) => {
+router.put("/:community_id", middleware.checkCommunityOwnership, (req, res) => {
   Community.findByIdAndUpdate(
     req.params.community_id,
     req.body.community,
     (err) => {
       if (err) {
-        console.log(err);
         res.redirect("back");
       } else {
         res.redirect(`/communities/${req.params.community_id}`);
@@ -77,15 +81,18 @@ router.put("/:community_id", (req, res) => {
   );
 });
 
-router.delete("/:community_id", (req, res) => {
-  Community.findByIdAndDelete(req.params.community_id, (err) => {
-    if (err) {
-      console.log(err);
-      res.redirect("back");
-    } else {
-      res.redirect("/communities");
-    }
-  });
-});
+router.delete(
+  "/:community_id",
+  middleware.checkCommunityOwnership,
+  (req, res) => {
+    Community.findByIdAndDelete(req.params.community_id, (err) => {
+      if (err) {
+        res.redirect("back");
+      } else {
+        res.redirect("/communities");
+      }
+    });
+  }
+);
 
 module.exports = router;
