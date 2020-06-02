@@ -1,21 +1,33 @@
-<div id="sidebar" class="col-md-3">
-  <ul class="nav flex-column">
-    <li class="nav-item">
-      <h2>Title</h2>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link active" href="#">Active</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">Link</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">Link</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true"
-        >Disabled</a
-      >
-    </li>
-  </ul>
+<div class="col-md-4">
+  <h5 class="d-inline">Your Activity</h5>
+  <hr />
+  <div class="row justify-content-start">
+    <div class="col-4">
+      <img
+        src="<%= currentUser.avatar %>"
+        class="avatar"
+        alt="<%= currentUser.username %>"
+      />
+    </div>
+    <div class="col">
+      <h5><%= currentUser.username %></h5>
+      <p><%= currentUser.bio %></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+          <i class="fas fa-heart"></i> <%= currentUser.karma %> karma
+        </li>
+        <li class="list-group-item">
+          <i class="fas fa-sticky-note"></i> <%= currentUser.posts.length %>
+          posts
+        </li>
+        <li class="list-group-item">
+          <i class="fas fa-pen"></i> <%= currentUser.comments.length %> comments
+        </li>
+      </ul>
+    </div>
+  </div>
 </div>

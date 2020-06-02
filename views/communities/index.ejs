@@ -1,28 +1,36 @@
-<%- include('../partials/header') %> <%- include('../partials/sidebar') %>
+<%- include('../partials/header') %> <%- include('../partials/navbar') %>
+<div id="main" class="container">
+  <div class="row">
+    <%-include('../partials/sidebar') %>
 
-<div id="community-list" class="col">
-  <% communities.forEach(community => { %>
-  <div class="card mb-1">
-    <div class="row no-gutters align-items-center">
-      <div class="col-2">
-        <div class="row justify-content-center">
-          <img src="<%= community.image %>" class="card-img" alt="..." />
+    <div id="community-list" class="col">
+      <h5 class="d-inline">Communities</h5>
+      <a class="btn btn-community" href="communities/new">Start a Community</a>
+      <hr />
+      <% communities.forEach(community => { %>
+      <div class="card mb-1">
+        <div class="row no-gutters align-items-center">
+          <div class="col-2">
+            <div class="row justify-content-center">
+              <img src="<%= community.image %>" class="card-img" alt="..." />
+            </div>
+          </div>
+          <div class="col">
+            <div class="card-body">
+              <a href="communities/<%= community._id %>">
+                <h5 class="card-title"><%= community.name %></h5>
+              </a>
+              <p class="card-text"><%= community.description %></p>
+              <p class="card-text">
+                <small class="text-muted">Tags here?</small>
+              </p>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="col">
-        <div class="card-body">
-          <a href="communities/<%= community._id %>">
-            <h5 class="card-title"><%= community.name %></h5>
-          </a>
-          <p class="card-text"><%= community.description %></p>
-          <p class="card-text">
-            <small class="text-muted">Tags here?</small>
-          </p>
-        </div>
-      </div>
+      <% }) %>
     </div>
   </div>
-  <% }) %>
-
-  <a class="btn btn-primary" href="communities/new">Create Community</a>
 </div>
+
+<%- include('../partials/footer') %>

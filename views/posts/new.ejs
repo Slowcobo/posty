@@ -5,10 +5,10 @@
 
   <form action="/communities/<%= community._id %>/posts" method="POST">
     <div class="form-group">
-      <input type="text" name="post[title]" placeholder="Post Title" />
+      <input type="text" name="post[title]" placeholder="Post Title" required />
     </div>
     <div class="form-group">
-      <input type="text" name="post[body]" placeholder="Post Body" />
+      <input type="text" name="post[body]" placeholder="Post Body" required />
     </div>
     <button class="btn btn-primary">Create Post</button>
   </form>

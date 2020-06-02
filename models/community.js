@@ -11,6 +11,7 @@ const communitySchema = new mongoose.Schema({
     },
     username: String,
   },
+  subscribers: Number,
   posts: [
     {
       type: mongoose.SchemaTypes.ObjectId,

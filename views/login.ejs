@@ -1,14 +1,30 @@
 <%- include('./partials/header') %>
-
-<div class="col">
-  <h1>Login</h1>
-  <form action="/login" method="POST">
-    <div class="form-group">
-      <input type="text" name="username" placeholder="username" />
+  <div class="wrapper">
+    <i id="logo" class="fas fa-paragraph"></i>
+    <p id="logo-subtext">posty</p>
+    <div class="card text-center panel">
+      <div class="card-body">
+        <h5 class="card-title">Log in</h5>
+        <hr />
+        <form action="/login" method="POST">
+          <div class="label-container">
+            <i class="fas fa-user"></i>
+            <label>Username</label>
+          </div>
+          <div class="form-group">
+            <input type="text" name="username" />
+          </div>
+          <div class="label-container">
+            <i class="fas fa-lock"></i>
+            <label>Password</label>
+          </div>
+          <div class="form-group">
+            <input type="password" name="password" />
+          </div>
+          <button class="btn"><strong>Log in</strong></button>
+        </form>
+        <hr />
+        <p>New to posty? <a href="/register">Sign Up</a></p>
+      </div>
     </div>
-    <div class="form-group">
-      <input type="password" name="password" placeholder="password" />
-    </div>
-    <button class="btn btn-primary">Login</button>
-  </form>
-</div>
+  </div>
