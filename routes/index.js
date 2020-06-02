@@ -40,7 +40,7 @@ router.post(
 
 router.get("/logout", (req, res) => {
   req.logout();
-  res.redirect("/communities");
+  res.redirect("/login");
 });
 
 module.exports = router;

@@ -9,23 +9,16 @@
       <hr />
       <% communities.forEach(community => { %>
       <div class="card mb-1">
-        <div class="row no-gutters align-items-center">
-          <div class="col-2">
-            <div class="row justify-content-center">
-              <img src="<%= community.image %>" class="card-img" alt="..." />
-            </div>
-          </div>
-          <div class="col">
-            <div class="card-body">
-              <a href="communities/<%= community._id %>">
-                <h5 class="card-title"><%= community.name %></h5>
-              </a>
-              <p class="card-text"><%= community.description %></p>
-              <p class="card-text">
-                <small class="text-muted">Tags here?</small>
-              </p>
-            </div>
-          </div>
+        <div class="card-body">
+          <a href="communities/<%= community._id %>">
+            <h5 class="card-title"><%= community.name %></h5>
+          </a>
+          <p class="card-text">
+            <%= community.description.substring(0, 100) %>...
+          </p>
+          <p class="card-text">
+            <small class="text-muted">Tags here?</small>
+          </p>
         </div>
       </div>
       <% }) %>

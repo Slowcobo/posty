@@ -1,54 +1,42 @@
-<%- include('../partials/header') %> <%- include('../partials/sidebar') %>
+<%- include('../partials/header') %> <%- include('../partials/navbar') %>
+<div id="main" class="container">
+  <div class="row">
+    <%-include('../partials/sidebarCommunity') %>
 
-<div id="post-list" class="col">
-  <h1><%= community.name %></h1>
-  <p>
-    Created by
-    <a href="/user/<%= community.owner.id %>"
-      ><%= community.owner.username %></a
-    >
-  </p>
-  <a href="/communities/<%= community._id %>/edit" class="btn btn-warning">
-    Edit Community
-  </a>
-  <form
-    class="action-form"
-    action="/communities/<%= community._id %>?_method=DELETE"
-    method="POST"
-  >
-    <button class="btn btn-danger">Delete Community</button>
-  </form>
-  <% if (community.posts.length <= 0) { %>
-  <p>There is nothing here.</p>
-  <% } else { %> <% community.posts.forEach(post => { %>
-  <div class="card mb-1">
-    <div class="row no-gutters align-items-center">
-      <div class="col-2">
-        <div class="row justify-content-center">
-          <img src="<%= post.author.avatar %>" class="card-img" alt="..." />
+    <div id="post-list" class="col">
+      <h5 class="d-inline">Posts</h5>
+      <a
+        href="/communities/<%= community._id %>/posts/new"
+        class="btn btn-community"
+      >
+        Create a Post
+      </a>
+      <hr />
+      <% if (community.posts.length <= 0) { %>
+      <p>There is nothing here.</p>
+      <% } else { %> <% community.posts.forEach(post => { %>
+      <div class="card mb-1">
+        <div class="row align-items-center">
+          <div class="col">
+            <div class="card-body">
+              <a href="/communities/<%= community._id %>/posts/<%= post._id %>">
+                <h5 class="card-title"><%= post.title %></h5>
+              </a>
+              <p class="card-text"><%= post.body %></p>
+              <p class="card-text">
+                <small class="text-muted">
+                  Posted by
+                  <a href="/user/<%= post.author.id %>"
+                    ><%= post.author.username %></a
+                  >| <%= post.likes %> <%= post.dislikes %> | Last updated 3
+                  mins ago
+                </small>
+              </p>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="col">
-        <div class="card-body">
-          <a href="/communities/<%= community._id %>/posts/<%= post._id %>">
-            <h5 class="card-title"><%= post.title %></h5>
-          </a>
-          <p class="card-text"><%= post.body %></p>
-          <p class="card-text">
-            <small class="text-muted">
-              Posted by
-              <a href="/user/<%= post.author.id %>"
-                ><%= post.author.username %></a
-              >| <%= post.likes %> <%= post.dislikes %> | Last updated 3 mins
-              ago
-            </small>
-          </p>
-        </div>
-      </div>
+      <% }); %> <% } %>
     </div>
   </div>
-  <% }); %> <% } %>
-  <a href="/communities/<%= community._id %>/posts/new" class="btn btn-primary">
-    Create Post
-  </a>
 </div>

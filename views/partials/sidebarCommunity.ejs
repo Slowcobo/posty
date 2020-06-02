@@ -1,0 +1,38 @@
+<div class="col-md-4 mb-4">
+  <h5 class="d-inline"><%= community.name %></h5>
+  <hr />
+  <div class="row">
+    <div class="col">
+      <div class="row justify-content-center">
+        <img
+          class="community-image"
+          src="<%= community.image %>"
+          alt="<%= community.name %>"
+        />
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+          <i class="fas fa-heart"></i> <%= currentUser.karma %> subscribers
+        </li>
+      </ul>
+      <p><%= community.description %></p>
+      <hr />
+      <a href="/communities/<%= community._id %>/edit" class="btn">
+        Edit Community
+      </a>
+      <p></p>
+      <form
+        class="action-form"
+        action="/communities/<%= community._id %>?_method=DELETE"
+        method="POST"
+      >
+        <button class="btn">Delete Community</button>
+      </form>
+      <hr />
+    </div>
+  </div>
+</div>
