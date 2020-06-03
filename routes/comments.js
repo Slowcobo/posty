@@ -36,11 +36,27 @@ router.put("/", (req, res) => {
 });
 
 router.delete("/", (req, res) => {
-  Comment.findByIdAndDelete(req.params.comment_id, (err, foundComment) => {
+  Comment.findByIdAndDelete(req.params.comment_id, (err, deletedComment) => {
     if (err) {
       console.log(err);
       res.redirect("back");
     } else {
+      //Remove comment from post
+      Post.findById(req.params.post_id, (err, foundPost) => {
+        const commentIndex = foundPost.replies.findIndex((comment) =>
+          comment._id.equals(deletedComment._id)
+        );
+        foundPost.replies.splice(commentIndex, 1);
+        foundPost.save();
+      });
+
+      //Remove comment from user
+      const commentIndex = req.user.comments.findIndex((comment) =>
+        comment._id.equals(deletedComment._id)
+      );
+      req.user.comments.splice(commentIndex, 1);
+      req.user.save();
+
       res.redirect(
         `/communities/${req.params.community_id}/posts/${req.params.post_id}`
       );

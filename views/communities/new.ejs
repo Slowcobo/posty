@@ -6,28 +6,29 @@
     <div class="col">
       <h5 class="d-inline">Start a Community</h5>
       <hr />
-      <form action="/communities" method="POST">
-        <div class="label-container">
-          <label>Community Name *</label>
-        </div>
-        <div class="form-group">
-          <input type="text" name="community[name]" />
-        </div>
-
-        <div class="form-group">
+      <div class="panel-form">
+        <form action="/communities" method="POST">
           <div class="label-container">
-            <label>Description *</label>
+            <label>Community Name *</label>
           </div>
-          <input type="text" name="community[description]" />
-        </div>
-        <div class="form-group">
-          <div class="label-container">
-            <label>Community Image *</label>
+          <div class="form-group">
+            <input type="text" name="community[name]" />
           </div>
-          <input type="text" name="community[image]" />
-        </div>
-        <button class="btn">Create</button>
-      </form>
+          <div class="form-group">
+            <div class="label-container">
+              <label>Community Image *</label>
+            </div>
+            <input type="text" name="community[image]" />
+          </div>
+          <div class="form-group">
+            <div class="label-container">
+              <label>Description *</label>
+            </div>
+            <input type="text" name="community[description]" />
+          </div>
+          <button class="btn">Create</button>
+        </form>
+      </div>
     </div>
   </div>
 </div>

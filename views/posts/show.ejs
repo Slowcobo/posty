@@ -1,7 +1,7 @@
 <%- include('../partials/header') %> <%- include('../partials/navbar') %>
 <div id="main" class="container">
   <div class="row">
-    <%-include('../partials/sidebar') %>
+    <%-include('../partials/sidebarCommunity') %>
     <div id="post-list" class="col">
       <h5 class="d-inline"><%= post.title %></h5>
       <hr />
@@ -23,19 +23,20 @@
                 </small>
               </p>
               <p class="card-text"><%= post.body %></p>
-
+              <% if (currentUser._id.equals(post.author.id)) { %>
               <a
-                href="/communities/<%= communityId %>/posts/<%= post._id %>/edit"
+                href="/communities/<%= community._id %>/posts/<%= post._id %>/edit"
                 class="btn btn-sm"
                 >Edit</a
               >
               <form
                 class="action-form"
-                action="/communities/<%= communityId %>/posts/<%= post._id %>?_method=DELETE"
+                action="/communities/<%= community._id %>/posts/<%= post._id %>?_method=DELETE"
                 method="POST"
               >
                 <button class="btn btn-sm">Delete</button>
               </form>
+              <% } %>
             </div>
           </div>
         </div>
@@ -44,7 +45,7 @@
       <h5>Replies</h5>
       <hr />
       <form
-        action="/communities/<%= communityId %>/posts/<%= post._id %>"
+        action="/communities/<%= community._id %>/posts/<%= post._id %>"
         method="POST"
       >
         <input type="text" name="comment[body]" placeholder="body" />
@@ -69,13 +70,13 @@
               <p class="card-text"><%= comment.body %></p>
               <!--TODO: Include reply form here-->
               <a
-                href="/communities/<%= communityId %>/posts/<%= post._id %>/<%= comment._id %>/edit"
+                href="/communities/<%= community._id %>/posts/<%= post._id %>/<%= comment._id %>/edit"
                 class="btn btn-sm"
                 >Edit</a
               >
               <form
                 class="action-form"
-                action="/communities/<%= communityId %>/posts/<%= post._id %>/<%= comment._id %>?_method=DELETE"
+                action="/communities/<%= community._id %>/posts/<%= post._id %>/<%= comment._id %>?_method=DELETE"
                 method="POST"
               >
                 <button class="btn btn-sm">Delete</button>

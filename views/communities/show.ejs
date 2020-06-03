@@ -22,16 +22,18 @@
               <a href="/communities/<%= community._id %>/posts/<%= post._id %>">
                 <h5 class="card-title"><%= post.title %></h5>
               </a>
-              <p class="card-text"><%= post.body %></p>
-              <p class="card-text">
+              <div class="card-text">
                 <small class="text-muted">
-                  Posted by
+                  Posted X hours ago by
                   <a href="/user/<%= post.author.id %>"
                     ><%= post.author.username %></a
-                  >| <%= post.likes %> <%= post.dislikes %> | Last updated 3
-                  mins ago
+                  >
+                  <span class="post-info">
+                    <i class="fas fa-pen"></i> <%= post.replies.length %>
+                    <i class="fas fa-heart"></i> <%= post.likes %>
+                  </span>
                 </small>
-              </p>
+              </div>
             </div>
           </div>
         </div>
