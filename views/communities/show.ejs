@@ -15,8 +15,8 @@
       <% if (community.posts.length <= 0) { %>
       <p>There is nothing here.</p>
       <% } else { %> <% community.posts.forEach(post => { %>
-      <div class="card mb-1">
-        <div class="row align-items-center">
+      <div class="card">
+        <div class="row">
           <div class="col">
             <div class="card-body">
               <a href="/communities/<%= community._id %>/posts/<%= post._id %>">
@@ -29,7 +29,7 @@
                     ><%= post.author.username %></a
                   >
                   <span class="post-info">
-                    <i class="fas fa-pen"></i> <%= post.replies.length %>
+                    <i class="fas fa-comment"></i> <%= post.replies.length %>
                     <i class="fas fa-heart"></i> <%= post.likes %>
                   </span>
                 </small>

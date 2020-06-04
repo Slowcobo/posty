@@ -22,7 +22,6 @@ router.post("/", middleware.isLoggedIn, (req, res) => {
     id: req.user._id,
     username: req.user.username,
   };
-
   Community.create(req.body.community, (err, newCommunity) => {
     if (err) {
       console.log(err);
@@ -94,5 +93,24 @@ router.delete(
     });
   }
 );
+
+//TODO: Refactor this
+router.get("/:community_id/subscribe", middleware.isLoggedIn, (req, res) => {
+  Community.findById(req.params.community_id, (err, foundCommunity) => {
+    if (err) {
+      res.redirect("back");
+    } else {
+      if (!foundCommunity.members.includes(req.user._id)) {
+        //Add community to user
+        req.user.communities.push(foundCommunity);
+        req.user.save();
+
+        //Add user to community
+        foundCommunity.members.push(req.user);
+        foundCommunity.save();
+      }
+    }
+  });
+});
 
 module.exports = router;

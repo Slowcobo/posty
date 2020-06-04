@@ -17,7 +17,10 @@
       <div class="col">
         <small>
           <p>
-            <i class="fas fa-heart"></i> <%= currentUser.karma %> subscribers
+            <i class="fas fa-heart"></i> <%= community.members.length %> members
+            <form action="/communities/<%= community._id %>/subscribe" method="GET">
+              <button class="btn">Subscribe</button>
+            </form>
           </p>
         </small>
         <p><%= community.description %></p>

@@ -41,6 +41,23 @@ middleware.checkPostOwnership = (req, res, next) => {
 };
 
 //TODO: Check Comment Ownership
+middleware.checkCommentOwnership = (req, res, next) => {
+  if (req.isAuthenticated()) {
+    Comment.findById(req.params.comment_id, (err, foundComment) => {
+      if (err) {
+        res.redirect("back");
+      } else {
+        if (foundComment.author.equals(req.user._id)) {
+          next();
+        } else {
+          res.redirect("back");
+        }
+      }
+    });
+  } else {
+    res.redirect("back");
+  }
+};
 
 middleware.checkUser = (req, res, next) => {
   if (req.isAuthenticated()) {

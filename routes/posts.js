@@ -30,6 +30,8 @@ router.post("/", middleware.isLoggedIn, (req, res) => {
         } else {
           newPost.author = req.user;
           newPost.save();
+
+          console.log(newPost);
           //Add post to community
           foundCommunity.posts.push(newPost);
           foundCommunity.save();
@@ -90,7 +92,7 @@ router.get("/:post_id/edit", middleware.checkPostOwnership, (req, res) => {
   });
 });
 
-router.put("/:post_id", middleware.checkCommunityOwnership, (req, res) => {
+router.put("/:post_id", middleware.checkPostOwnership, (req, res) => {
   Post.findByIdAndUpdate(
     req.params.post_id,
     req.body.post,

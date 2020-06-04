@@ -6,6 +6,12 @@ const userSchema = new mongoose.Schema({
   password: String,
   avatar: String,
   bio: String,
+  communities: [
+    {
+      type: mongoose.SchemaTypes.ObjectId,
+      ref: "Community",
+    },
+  ],
   posts: [
     {
       type: mongoose.SchemaTypes.ObjectId,

@@ -2,8 +2,9 @@ const express = require("express");
 const router = express.Router({ mergeParams: true });
 const Post = require("../models/post");
 const Comment = require("../models/comment");
+const middleware = require("../middleware");
 
-router.get("/edit", (req, res) => {
+router.get("/edit", middleware.checkCommentOwnership, (req, res) => {
   Comment.findById(req.params.comment_id, (err, foundComment) => {
     if (err) {
       console.log(err);
@@ -18,7 +19,7 @@ router.get("/edit", (req, res) => {
   });
 });
 
-router.put("/", (req, res) => {
+router.put("/", middleware.checkCommentOwnership, (req, res) => {
   Comment.findByIdAndUpdate(
     req.params.comment_id,
     req.body.comment,
@@ -35,7 +36,7 @@ router.put("/", (req, res) => {
   );
 });
 
-router.delete("/", (req, res) => {
+router.delete("/", middleware.checkCommentOwnership, (req, res) => {
   Comment.findByIdAndDelete(req.params.comment_id, (err, deletedComment) => {
     if (err) {
       console.log(err);
