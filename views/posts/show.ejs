@@ -85,40 +85,11 @@
             </p>
             <p class="card-text"><%= comment.body %></p>
             <!--TODO: Include reply form here-->
-
-            <% if (currentUser._id.equals(comment.author.id)) { %>
-            <div class="dropdown">
-              <a
-                href="#"
-                role="button"
-                id="dropdownComment"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-                ><i class="fas fa-ellipsis-h"></i
-              ></a>
-              <div class="dropdown-menu" aria-labelledby="dropdownComment">
-                <a
-                  href="/communities/<%= community._id %>/posts/<%= post._id %>/<%= comment._id %>/edit"
-                  class="dropdown-item"
-                  >Edit Comment</a
-                >
-                <form
-                  class="action-form"
-                  action="/communities/<%= community._id %>/posts/<%= post._id %>/<%= comment._id %>?_method=DELETE"
-                  method="POST"
-                >
-                  <button class="dropdown-item">Delete Comment</button>
-                </form>
-              </div>
-              <% } %>
-            </div>
           </div>
         </div>
-        <% }); %>
       </div>
+      <% }); %>
     </div>
   </div>
-
   <%- include('../partials/footer') %>
 </div>

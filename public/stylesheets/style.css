@@ -128,9 +128,10 @@ textarea:focus {
 }
 
 .avatar-post {
-  width: 60px;
-  height: 60px;
+  width: 50px;
+  height: 50px;
   margin: auto;
+  border-radius: 0.25rem;
 }
 
 .btn-community {
