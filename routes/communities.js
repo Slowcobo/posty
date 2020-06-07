@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router({ mergeParams: true });
 const Community = require("../models/community");
+const User = require("../models/user");
 const middleware = require("../middleware");
 
 router.get("/", middleware.isLoggedIn, (req, res) => {
@@ -27,7 +28,12 @@ router.post("/", middleware.isLoggedIn, (req, res) => {
       console.log(err);
     } else {
       newCommunity.owner = owner;
+      newCommunity.members.push(req.user);
       newCommunity.save();
+
+      req.user.communities.push(newCommunity);
+      req.user.save();
+
       res.redirect("communities");
     }
   });
@@ -80,17 +86,38 @@ router.put("/:community_id", middleware.checkCommunityOwnership, (req, res) => {
   );
 });
 
+//TODO - Ensure community has no posts before deleting
 router.delete(
   "/:community_id",
   middleware.checkCommunityOwnership,
   (req, res) => {
-    Community.findByIdAndDelete(req.params.community_id, (err) => {
-      if (err) {
-        res.redirect("back");
-      } else {
-        res.redirect("/communities");
+    Community.findByIdAndDelete(
+      req.params.community_id,
+      (err, deletedCommunity) => {
+        if (err) {
+          res.redirect("back");
+        } else {
+          //Remove from members
+          deletedCommunity.members.forEach((member) => {
+            User.findById(member._id, (err, foundMember) => {
+              if (err) {
+                console.log(err);
+              } else {
+                const communityIndex = foundMember.communities.findIndex(
+                  (community) => {
+                    community._id.equals(deletedCommunity._id);
+                  }
+                );
+
+                foundMember.communities.splice(communityIndex, 1);
+                foundMember.save();
+              }
+            });
+          });
+          res.redirect("/communities");
+        }
       }
-    });
+    );
   }
 );
 

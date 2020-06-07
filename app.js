@@ -14,7 +14,7 @@ const communityRoutes = require("./routes/communities"),
 
 const app = express();
 
-mongoose.connect("mongodb://localhost/postr", {
+mongoose.connect("mongodb://localhost/posty", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useFindAndModify: false,

@@ -19,7 +19,6 @@ router.post("/register", (req, res) => {
       return res.render("register");
     }
     passport.authenticate("local")(req, res, () => {
-      console.log(req.body);
       res.redirect("/communities");
     });
   });
@@ -35,7 +34,7 @@ router.post(
     successRedirect: "/communities",
     failureRedirect: "/login",
   }),
-  (req, res) => {}
+  (req, res) => { }
 );
 
 router.get("/logout", (req, res) => {
