@@ -90,6 +90,7 @@ router.put("/:community_id", middleware.checkCommunityOwnership, (req, res) => {
 router.delete(
   "/:community_id",
   middleware.checkCommunityOwnership,
+  middleware.checkIfCommunityValid,
   (req, res) => {
     Community.findByIdAndDelete(
       req.params.community_id,

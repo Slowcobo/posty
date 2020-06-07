@@ -31,10 +31,10 @@ router.post("/", middleware.isLoggedIn, (req, res) => {
           newPost.author = req.user;
           newPost.save();
 
-          console.log(newPost);
           //Add post to community
           foundCommunity.posts.push(newPost);
           foundCommunity.save();
+
           //Add post to user
           req.user.posts.push(newPost);
           req.user.save();
@@ -121,6 +121,19 @@ router.delete("/:post_id", middleware.checkPostOwnership, (req, res) => {
       );
       req.user.posts.splice(postIndex, 1);
       req.user.save();
+
+      //Remove post from community
+      Community.findById(req.params.community_id, (err, foundCommunity) => {
+        if (err) {
+          console.log(err);
+        } else {
+          const postIndex = foundCommunity.posts.findIndex((post) =>
+            post._id.equals(deletedPost._id)
+          );
+          foundCommunity.posts.splice(postIndex, 1);
+          foundCommunity.save();
+        }
+      });
 
       res.redirect(`/communities/${req.params.community_id}`);
     }

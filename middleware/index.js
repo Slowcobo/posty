@@ -22,6 +22,18 @@ middleware.checkCommunityOwnership = (req, res, next) => {
   }
 };
 
+middleware.checkIfCommunityValid = (req, res, next) => {
+  if (req.isAuthenticated()) {
+    Community.findById(req.params.community_id, (err, foundCommunity) => {
+      if (foundCommunity.posts.length !== 0) {
+        res.redirect("back");
+      } else {
+        next();
+      }
+    });
+  }
+};
+
 middleware.checkPostOwnership = (req, res, next) => {
   if (req.isAuthenticated()) {
     Post.findById(req.params.post_id, (err, foundPost) => {
