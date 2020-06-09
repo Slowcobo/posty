@@ -17,10 +17,18 @@
       <div class="col">
         <small>
           <p>
-            <i class="fas fa-heart"></i> <%= community.members.length %> members
-            <form action="/communities/<%= community._id %>/subscribe" method="GET">
-              <button class="btn">Subscribe</button>
-            </form>
+            <i class="fas fa-heart"></i> <a href="/communities/<%= community._id %>/members"><%= community.members.length %> members</a>
+            <% if (!community.members.includes(currentUser._id)) { %>
+              <form action="/communities/<%= community._id %>/subscribe" method="POST">
+                <button class="btn">Subscribe</button>
+              </form>
+            <% } else { %> 
+              <% if (!currentUser._id.equals(community.owner.id)) { %>
+              <form action="/communities/<%= community._id %>/unsubscribe" method="POST">
+                <button class="btn">Unsubscribe</button>
+              </form> 
+               <% } %>
+              <% } %>
           </p>
         </small>
         <p><%= community.description %></p>

@@ -1,13 +1,15 @@
-<%- include('../partials/header') %> <%- include('../partials/navbar') %>
+<%- include('./partials/header') %> <%- include('./partials/navbar') %>
 <div id="main" class="container">
   <div class="row">
-    <%-include('../partials/sidebar') %>
+    <%-include('./partials/sidebar') %>
 
     <div id="community-list" class="col">
-      <h5 class="d-inline">Communities</h5>
+      <h5 class="d-inline">Your Communities</h5>
       <a class="btn btn-community" href="communities/new">Start a Community</a>
       <hr />
-      <% communities.forEach(community => { %> <% if (!community.isPrivate) { %>
+      <% if (currentUser.communities.length === 0) { %>
+      <p>You are not a member of any communities.</p>
+      <% } else { %> <% currentUser.communities.forEach(community => { %>
       <div class="card">
         <div class="card-body">
           <a href="communities/<%= community._id %>">
@@ -21,9 +23,9 @@
           </p>
         </div>
       </div>
-      <% } %> <% }) %>
+      <% }) %> <% } %>
     </div>
   </div>
 </div>
 
-<%- include('../partials/footer') %>
+<%- include('./partials/footer') %>

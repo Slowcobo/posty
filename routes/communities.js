@@ -34,7 +34,7 @@ router.post("/", middleware.isLoggedIn, (req, res) => {
       req.user.communities.push(newCommunity);
       req.user.save();
 
-      res.redirect("communities");
+      res.redirect(`communities/${newCommunity._id}`);
     }
   });
 });
@@ -115,7 +115,7 @@ router.delete(
               }
             });
           });
-          res.redirect("/communities");
+          res.redirect("/dashboard");
         }
       }
     );
@@ -123,7 +123,7 @@ router.delete(
 );
 
 //TODO: Refactor this
-router.get("/:community_id/subscribe", middleware.isLoggedIn, (req, res) => {
+router.post("/:community_id/subscribe", middleware.isLoggedIn, (req, res) => {
   Community.findById(req.params.community_id, (err, foundCommunity) => {
     if (err) {
       res.redirect("back");
@@ -136,7 +136,45 @@ router.get("/:community_id/subscribe", middleware.isLoggedIn, (req, res) => {
         //Add user to community
         foundCommunity.members.push(req.user);
         foundCommunity.save();
+
+        res.end();
       }
+    }
+  });
+});
+
+//TODO: Refactor this
+router.post("/:community_id/unsubscribe", middleware.isLoggedIn, (req, res) => {
+  Community.findById(req.params.community_id, (err, foundCommunity) => {
+    if (err) {
+      res.redirect("back");
+    } else {
+      //Remove community from user
+      const communityIndex = req.user.communities.findIndex((community) =>
+        community._id.equals(foundCommunity.id)
+      );
+      req.user.communities.splice(communityIndex, 1);
+      req.user.save();
+
+      //Remove user from community
+      const userIndex = foundCommunity.members.findIndex((member) =>
+        member._id.equals(req.user._id)
+      );
+      foundCommunity.members.splice(userIndex, 1);
+      foundCommunity.save();
+
+      res.end();
+    }
+  });
+});
+
+router.get("/:community_id/members", (req, res) => {
+  Community.findById(req.params.community_id, (err, foundCommunity) => {
+    if (err) {
+      res.redirect("back");
+    } else {
+      res.send("This is where the member list will be");
+      //res.render('communities/members/show');
     }
   });
 });

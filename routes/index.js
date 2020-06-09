@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router({ mergeParams: true });
 const passport = require("passport");
 const User = require("../models/user");
+const middleware = require("../middleware");
 
 router.get("/", (req, res) => {
   res.send("This is the index page.");
@@ -19,7 +20,7 @@ router.post("/register", (req, res) => {
       return res.render("register");
     }
     passport.authenticate("local")(req, res, () => {
-      res.redirect("/communities");
+      res.redirect("/dashboard");
     });
   });
 });
@@ -31,15 +32,23 @@ router.get("/login", (req, res) => {
 router.post(
   "/login",
   passport.authenticate("local", {
-    successRedirect: "/communities",
+    successRedirect: "/dashboard",
     failureRedirect: "/login",
   }),
-  (req, res) => { }
+  (req, res) => {}
 );
 
 router.get("/logout", (req, res) => {
   req.logout();
   res.redirect("/login");
+});
+
+router.get("/dashboard", middleware.isLoggedIn, (req, res) => {
+  User.findById(req.user._id)
+    .populate("communities")
+    .exec((err, foundUser) => {
+      res.render("index", { currentUser: foundUser });
+    });
 });
 
 module.exports = router;

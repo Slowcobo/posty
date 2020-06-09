@@ -36,12 +36,9 @@
             <div class="label-container">
               <label>Community Description</label>
             </div>
-            <input
-              type="text"
-              name="community[description]"
-              value="<%= community.description %>"
-              required
-            />
+            <textarea name="community[description]">
+<%= community.description %></textarea
+            >
           </div>
           <button class="btn">Save</button>
         </form>

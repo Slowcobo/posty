@@ -3,10 +3,6 @@ const router = express.Router();
 const User = require("../models/user");
 const middleware = require("../middleware");
 
-// router.get("/", (req, res) => {
-//   res.send("This is the user route");
-// });
-
 router.get("/:user_id", middleware.isLoggedIn, (req, res) => {
   User.findById(req.params.user_id, (err, foundUser) => {
     if (err) {

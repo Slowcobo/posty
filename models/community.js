@@ -4,6 +4,7 @@ const communitySchema = new mongoose.Schema({
   name: String,
   description: String,
   image: String,
+  isPrivate: Boolean,
   owner: {
     id: {
       type: mongoose.SchemaTypes.ObjectId,

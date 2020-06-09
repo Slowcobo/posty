@@ -24,7 +24,13 @@
             <div class="label-container">
               <label>Description *</label>
             </div>
-            <input type="text" name="community[description]" />
+            <textarea name="community[description]"></textarea>
+          </div>
+          <div class="form-group">
+            <div class="label-container">
+              <label>Private?</label>
+              <input type="checkbox" name="community[isPrivate]" value="true" />
+            </div>
           </div>
           <button class="btn">Create</button>
         </form>
