@@ -109,10 +109,10 @@ textarea:focus {
 }
 
 #sidebar {
-  background-color: white;
-  border-radius: 0.25rem;
   padding: 1.25rem;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.25rem;
+  background-color: white;
 }
 
 .action-form {
@@ -121,8 +121,8 @@ textarea:focus {
 
 .avatar {
   border-radius: 0.25rem;
-  width: 80px;
-  height: 80px;
+  width: 60px;
+  height: 60px;
   margin: auto;
 }
 
@@ -133,8 +133,8 @@ textarea:focus {
 }
 
 .avatar-post {
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   margin: auto;
   border-radius: 0.25rem;
 }
@@ -153,14 +153,17 @@ textarea:focus {
 }
 
 .card {
-  border: 0px;
   border-radius: 0.25rem;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
-  margin-bottom: 0.5rem;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
 }
 
-.card:hover {
-  background-color: #fafafa;
+.card-body {
+  padding: 0.5rem 1.25rem;
+}
+
+.card-header {
+  background-color: rgba(0, 0, 0, 0);
+  padding: 0.5rem 1.25rem;
 }
 
 .card h5 {
@@ -174,12 +177,17 @@ textarea:focus {
 }
 
 .card-footer {
+  background-color: rgba(0, 0, 0, 0.01);
   padding: 0 1.25rem;
 }
 
 .container-fluid {
   padding: 0;
   margin: 0;
+}
+
+.community-image {
+  border-radius: 0.25rem;
 }
 
 .community-image-small {
@@ -279,10 +287,6 @@ div .dropdown {
   margin: 2rem 0;
 }
 
-.post-info {
-  float: right;
-}
-
 .wrapper {
   background-color: var(--main-color);
   text-align: center;
@@ -306,4 +310,10 @@ div .dropdown {
     width: 100%;
     max-width: none;
   }
+}
+
+.post-info,
+.tag-list {
+  padding-left: 1.25rem;
+  margin-bottom: 1rem;
 }

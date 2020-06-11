@@ -17,25 +17,29 @@
       <div class="card">
         <div class="row">
           <div class="col">
-            <div class="card-body">
+            <div class="card-header">
               <a href="/communities/<%= community._id %>/posts/<%= post._id %>">
-                <h5 class="card-title"><%= post.title %></h5>
+                <strong><%= post.title %></strong>
               </a>
+            </div>
+            <div class="card-body">
               <div class="card-text">
                 <small class="text-muted">
                   Posted X hours ago by
                   <a href="/user/<%= post.author.id %>"
                     ><%= post.author.username %></a
                   >
-                  <span class="post-info">
-                    <i class="fas fa-comment"></i> <%= post.replies.length %>
-                    <i class="fas fa-heart"></i> <%= post.likes %>
-                  </span>
                 </small>
               </div>
             </div>
           </div>
         </div>
+      </div>
+      <div class="post-info">
+        <small>
+          <i class="fas fa-comment"></i> <%= post.replies.length %>
+          <i class="fas fa-heart"></i> <%= post.likes %>
+        </small>
       </div>
       <% }); }%>
     </div>

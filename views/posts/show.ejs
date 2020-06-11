@@ -6,51 +6,60 @@
     <div id="post-list" class="col">
       <h5 class="d-inline"><%= post.title %></h5>
       <hr />
-
-      <div class="card">
-        <div class="card-header">
+      <div class="row">
+        <div class="col-1">
           <img class="avatar-post" src="<%= post.author.avatar %>" />
-          <a href="/user/<%= post.author.id %>"><%= post.author.username %></a>
+        </div>
+        <div class="col">
+          <div class="card">
+            <div class="card-header">
+              <a href="/user/<%= post.author.id %>"
+                ><%= post.author.username %></a
+              >
 
-          <% if (currentUser._id.equals(post.author.id)) { %>
-          <div class="dropdown">
-            <a
-              href="#"
-              role="button"
-              id="dropdownPost"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              <i class="fas fa-ellipsis-h"></i>
-            </a>
-            <div class="dropdown-menu" aria-labelledby="dropdownPost">
-              <a
-                class="dropdown-item"
-                href="/communities/<%= community._id %>/posts/<%= post._id %>/edit"
-              >
-                Edit Post
-              </a>
-              <form
-                class="action-form"
-                action="/communities/<%= community._id %>/posts/<%= post._id %>?_method=DELETE"
-                method="POST"
-              >
-                <button class="dropdown-item">Delete Post</button>
-              </form>
+              <% if (currentUser._id.equals(post.author.id)) { %>
+              <div class="dropdown">
+                <a
+                  href="#"
+                  role="button"
+                  id="dropdownPost"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  <i class="fas fa-ellipsis-h"></i>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="dropdownPost">
+                  <a
+                    class="dropdown-item"
+                    href="/communities/<%= community._id %>/posts/<%= post._id %>/edit"
+                  >
+                    Edit Post
+                  </a>
+                  <form
+                    class="action-form"
+                    action="/communities/<%= community._id %>/posts/<%= post._id %>?_method=DELETE"
+                    method="POST"
+                  >
+                    <button class="dropdown-item">Delete Post</button>
+                  </form>
+                </div>
+              </div>
+              <% } %>
+            </div>
+
+            <div class="card-body">
+              <p class="card-text">
+                <%= post.body %>
+              </p>
             </div>
           </div>
-          <% } %>
-        </div>
-
-        <div class="card-body">
-          <p class="card-text">
-            <%= post.body %>
-          </p>
-        </div>
-        <div class="card-footer">
-          Last updated 3 mins ago <%= post.likes %> likes <%= post.dislikes %>
-          dislikes
+          <div class="post-info">
+            <small>
+              Last updated 3 mins ago <%= post.likes %> likes <%= post.dislikes
+              %> dislikes
+            </small>
+          </div>
         </div>
       </div>
 
@@ -65,52 +74,60 @@
       </form>
 
       <% post.replies.forEach(comment => { %>
-      <div class="card">
-        <div class="card-header">
+      <div class="row">
+        <div class="col-1">
           <img class="avatar-post" src="<%= post.author.avatar %>" />
-          <a href="/user/<%= post.author.id %>"
-            ><%= comment.author.username %></a
-          >
+        </div>
+        <div class="col">
+          <div class="card">
+            <div class="card-header">
+              <a href="/user/<%= post.author.id %>"
+                ><%= comment.author.username %></a
+              >
 
-          <% if (currentUser._id.equals(comment.author.id)) { %>
-          <div class="dropdown">
-            <a
-              href="#"
-              role="button"
-              id="dropdownPost"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              <i class="fas fa-ellipsis-h"></i>
-            </a>
-            <div class="dropdown-menu" aria-labelledby="dropdownPost">
-              <a
-                class="dropdown-item"
-                href="/communities/<%= community._id %>/posts/<%= post._id %>/<%= comment._id %>/edit"
-              >
-                Edit Post
-              </a>
-              <form
-                class="action-form"
-                action="/communities/<%= community._id %>/posts/<%= post._id %>/<%= comment._id %>?_method=DELETE"
-                method="POST"
-              >
-                <button class="dropdown-item">Delete Post</button>
-              </form>
+              <% if (currentUser._id.equals(comment.author.id)) { %>
+              <div class="dropdown">
+                <a
+                  href="#"
+                  role="button"
+                  id="dropdownPost"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  <i class="fas fa-ellipsis-h"></i>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="dropdownPost">
+                  <a
+                    class="dropdown-item"
+                    href="/communities/<%= community._id %>/posts/<%= post._id %>/<%= comment._id %>/edit"
+                  >
+                    Edit Post
+                  </a>
+                  <form
+                    class="action-form"
+                    action="/communities/<%= community._id %>/posts/<%= post._id %>/<%= comment._id %>?_method=DELETE"
+                    method="POST"
+                  >
+                    <button class="dropdown-item">Delete Post</button>
+                  </form>
+                </div>
+              </div>
+              <% } %>
+            </div>
+
+            <div class="card-body">
+              <p class="card-text">
+                <%= comment.body %>
+              </p>
             </div>
           </div>
-          <% } %>
-        </div>
-
-        <div class="card-body">
-          <p class="card-text">
-            <%= comment.body %>
-          </p>
-        </div>
-        <div class="card-footer">
-          Last updated 3 mins ago <%= comment.likes %> likes <%=
-          comment.dislikes %> dislikes
+          <div class="post-info">
+            <small>
+              Last updated 3 mins ago <%= comment.likes %> likes <%=
+              comment.dislikes %> dislikes
+            </small>
+          </div>
         </div>
       </div>
       <% }); %>

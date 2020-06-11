@@ -15,17 +15,21 @@
       </p>
       <% } else { %> <% currentUser.communities.forEach(community => { %>
       <div class="card">
-        <div class="card-body">
+        <div class="card-header">
           <a href="communities/<%= community._id %>">
-            <h5 class="card-title"><%= community.name %></h5>
+            <strong><%= community.name %></strong>
           </a>
+        </div>
+        <div class="card-body">
           <p class="card-text">
             <%= community.description.substring(0, 100) %>...
           </p>
-          <p class="card-text">
-            <small class="text-muted">Tags here?</small>
-          </p>
         </div>
+      </div>
+      <div class="tag-list">
+        <span class="badge badge-primary">Primary</span>
+        <span class="badge badge-secondary">Secondary</span>
+        <span class="badge badge-success">Success</span>
       </div>
       <% }) %> <% } %>
     </div>
