@@ -4,7 +4,7 @@ const passportLocalMongoose = require("passport-local-mongoose");
 const userSchema = new mongoose.Schema({
   username: String,
   password: String,
-  avatar: String,
+  avatar: { type: String, default: "https://i.imgur.com/aqg1zBj.jpg" }, //TODO: Refactor to using image file instead of url
   bio: String,
   communities: [
     {

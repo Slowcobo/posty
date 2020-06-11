@@ -136,8 +136,6 @@ router.post("/:community_id/subscribe", middleware.isLoggedIn, (req, res) => {
         //Add user to community
         foundCommunity.members.push(req.user);
         foundCommunity.save();
-
-        res.end();
       }
     }
   });
@@ -156,14 +154,17 @@ router.post("/:community_id/unsubscribe", middleware.isLoggedIn, (req, res) => {
       req.user.communities.splice(communityIndex, 1);
       req.user.save();
 
+      // Performance implications of filter vs splice?
+      // req.user.communities = req.user.communities.filter(
+      //   (community) => !community._id.equals(foundCommunity.id)
+      // );
+
       //Remove user from community
       const userIndex = foundCommunity.members.findIndex((member) =>
         member._id.equals(req.user._id)
       );
       foundCommunity.members.splice(userIndex, 1);
       foundCommunity.save();
-
-      res.end();
     }
   });
 });

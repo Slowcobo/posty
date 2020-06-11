@@ -1,8 +1,7 @@
 <%- include('../partials/header') %> <%- include('../partials/navbar') %>
 <div id="main" class="container">
   <div class="row">
-    <%-include('../partials/sidebarCommunity') %>
-
+    <%- include('../partials/sidebarCommunity') %>
     <div id="post-list" class="col">
       <h5 class="d-inline">Posts</h5>
       <a
@@ -12,9 +11,9 @@
         Create a Post
       </a>
       <hr />
-      <% if (community.posts.length <= 0) { %>
+      <% if (community.posts.length === 0) { %>
       <p>There is nothing here.</p>
-      <% } else { %> <% community.posts.forEach(post => { %>
+      <% } else { community.posts.forEach(post => { %>
       <div class="card">
         <div class="row">
           <div class="col">
@@ -38,7 +37,8 @@
           </div>
         </div>
       </div>
-      <% }); %> <% } %>
+      <% }); }%>
     </div>
   </div>
 </div>
+<%- include('../partials/footer') %>

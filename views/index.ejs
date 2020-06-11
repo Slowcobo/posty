@@ -9,6 +9,10 @@
       <hr />
       <% if (currentUser.communities.length === 0) { %>
       <p>You are not a member of any communities.</p>
+      <p>
+        <a href="/communities/new">Start your own</a> or
+        <a href="/communities">find an existing</a> community.
+      </p>
       <% } else { %> <% currentUser.communities.forEach(community => { %>
       <div class="card">
         <div class="card-body">

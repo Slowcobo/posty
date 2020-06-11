@@ -7,7 +7,7 @@
       <h5 class="d-inline">Communities</h5>
       <a class="btn btn-community" href="communities/new">Start a Community</a>
       <hr />
-      <% communities.forEach(community => { %> <% if (!community.isPrivate) { %>
+      <% communities.forEach(community => { if (!community.isPrivate) { %>
       <div class="card">
         <div class="card-body">
           <a href="communities/<%= community._id %>">
@@ -21,7 +21,7 @@
           </p>
         </div>
       </div>
-      <% } %> <% }) %>
+      <% }}); %>
     </div>
   </div>
 </div>
