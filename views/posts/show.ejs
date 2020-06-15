@@ -7,8 +7,8 @@
       <h5 class="d-inline"><%= post.title %></h5>
       <hr />
       <div class="row">
-        <div class="col-1">
-          <img class="avatar-post" src="<%= post.author.avatar %>" />
+        <div class="col-1 avatar-post">
+          <img class=""" src="<%= post.author.avatar %>" />
         </div>
         <div class="col">
           <div class="card">
@@ -53,12 +53,12 @@
                 <%= post.body %>
               </p>
             </div>
-          </div>
-          <div class="post-info">
-            <small>
-              Last updated 3 mins ago <%= post.likes %> likes <%= post.dislikes
-              %> dislikes
-            </small>
+            <div class="card-footer">
+              <small>
+                Last updated 3 mins ago <%= post.likes %> likes <%=
+                post.dislikes %> dislikes
+              </small>
+            </div>
           </div>
         </div>
       </div>
@@ -72,11 +72,12 @@
         <textarea id="reply" name="comment[body]"></textarea>
         <button class="btn btn-reply">Reply</button>
       </form>
+      <hr />
 
       <% post.replies.forEach(comment => { %>
       <div class="row">
-        <div class="col-1">
-          <img class="avatar-post" src="<%= post.author.avatar %>" />
+        <div class="col-1 avatar-post">
+          <img class="" src="<%= post.author.avatar %>" />
         </div>
         <div class="col">
           <div class="card">
@@ -121,12 +122,12 @@
                 <%= comment.body %>
               </p>
             </div>
-          </div>
-          <div class="post-info">
-            <small>
-              Last updated 3 mins ago <%= comment.likes %> likes <%=
-              comment.dislikes %> dislikes
-            </small>
+            <div class="card-footer">
+              <small>
+                Last updated 3 mins ago <%= comment.likes %> likes <%=
+                comment.dislikes %> dislikes
+              </small>
+            </div>
           </div>
         </div>
       </div>

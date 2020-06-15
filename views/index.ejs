@@ -17,19 +17,19 @@
       <div class="card">
         <div class="card-header">
           <a href="communities/<%= community._id %>">
-            <strong><%= community.name %></strong>
+            <%= community.name %>
           </a>
         </div>
         <div class="card-body">
           <p class="card-text">
-            <%= community.description.substring(0, 100) %>...
+            <% if (community.description.length > 200) { %> <%=
+            community.description.substring(0, 200) %>... <% } else { %> <%=
+            community.description %> <% } %>
           </p>
         </div>
-      </div>
-      <div class="tag-list">
-        <span class="badge badge-primary">Primary</span>
-        <span class="badge badge-secondary">Secondary</span>
-        <span class="badge badge-success">Success</span>
+        <div class="card-footer">
+          <small class="text-muted">Tags here?</small>
+        </div>
       </div>
       <% }) %> <% } %>
     </div>

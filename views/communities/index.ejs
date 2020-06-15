@@ -9,16 +9,20 @@
       <hr />
       <% communities.forEach(community => { if (!community.isPrivate) { %>
       <div class="card">
-        <div class="card-body">
+        <div class="card-header">
           <a href="communities/<%= community._id %>">
-            <h5 class="card-title"><%= community.name %></h5>
+            <%= community.name %>
           </a>
+        </div>
+        <div class="card-body">
           <p class="card-text">
-            <%= community.description.substring(0, 100) %>...
+            <% if (community.description.length > 200) { %> <%=
+            community.description.substring(0, 200) %>... <% } else { %> <%=
+            community.description %> <% } %>
           </p>
-          <p class="card-text">
-            <small class="text-muted">Tags here?</small>
-          </p>
+        </div>
+        <div class="card-footer">
+          <small class="text-muted">Tags here?</small>
         </div>
       </div>
       <% }}); %>

@@ -110,9 +110,13 @@ textarea:focus {
 
 #sidebar {
   padding: 1.25rem;
-  border: 1px solid rgba(0, 0, 0, 0.125);
+  border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 0.25rem;
   background-color: white;
+}
+
+#sidebar .btn {
+  margin: auto !important;
 }
 
 .action-form {
@@ -133,9 +137,18 @@ textarea:focus {
 }
 
 .avatar-post {
-  width: 40px;
-  height: 40px;
-  margin: auto;
+  min-width: 50px;
+  padding-right: 0;
+}
+
+.avatar-post-large {
+  min-width: 112px;
+  padding-right: 0;
+}
+
+.avatar-post img,
+.avatar-post-large img {
+  width: 100%;
   border-radius: 0.25rem;
 }
 
@@ -149,12 +162,13 @@ textarea:focus {
 .btn-reply {
   width: fit-content;
   max-width: 30%;
-  margin-bottom: 1rem;
 }
 
 .card {
   border-radius: 0.25rem;
+  border: 1px solid rgba(0, 0, 0, 0.1);
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+  margin-bottom: 1rem;
 }
 
 .card-body {
@@ -162,7 +176,8 @@ textarea:focus {
 }
 
 .card-header {
-  background-color: rgba(0, 0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.02);
+  border: none;
   padding: 0.5rem 1.25rem;
 }
 
@@ -177,8 +192,9 @@ textarea:focus {
 }
 
 .card-footer {
-  background-color: rgba(0, 0, 0, 0.01);
-  padding: 0 1.25rem;
+  background-color: rgba(0, 0, 0, 0.02);
+  padding: 0.5rem 1.25rem;
+  border: none;
 }
 
 .container-fluid {
@@ -198,6 +214,7 @@ textarea:focus {
 }
 
 div .dropdown {
+  float: right;
   display: inline !important;
 }
 
@@ -269,9 +286,9 @@ div .dropdown {
 
 .panel-form {
   background-color: white;
+  border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 0.25rem;
   padding: 1.25rem;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
 }
 
 .panel i {
@@ -286,6 +303,8 @@ div .dropdown {
 .panel hr {
   margin: 2rem 0;
 }
+
+
 
 .wrapper {
   background-color: var(--main-color);

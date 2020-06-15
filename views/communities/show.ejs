@@ -14,32 +14,33 @@
       <% if (community.posts.length === 0) { %>
       <p>There is nothing here.</p>
       <% } else { community.posts.forEach(post => { %>
-      <div class="card">
+      <div class="">
         <div class="row">
+          <div class="col-1 avatar-post-large">
+            <img src="<%= post.author.avatar %>" />
+          </div>
           <div class="col">
-            <div class="card-header">
-              <a href="/communities/<%= community._id %>/posts/<%= post._id %>">
-                <strong><%= post.title %></strong>
-              </a>
-            </div>
-            <div class="card-body">
-              <div class="card-text">
-                <small class="text-muted">
+            <div class="card post">
+              <div class="card-body">
+                <a
+                  href="/communities/<%= community._id %>/posts/<%= post._id %>"
+                >
+                  <h5><%= post.title %></h5>
+                </a>
+              </div>
+              <div class="card-footer">
+                <small>
                   Posted X hours ago by
                   <a href="/user/<%= post.author.id %>"
                     ><%= post.author.username %></a
                   >
+                  <i class="fas fa-comment"></i> <%= post.replies.length %>
+                  <i class="fas fa-heart"></i> <%= post.likes %>
                 </small>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="post-info">
-        <small>
-          <i class="fas fa-comment"></i> <%= post.replies.length %>
-          <i class="fas fa-heart"></i> <%= post.likes %>
-        </small>
       </div>
       <% }); }%>
     </div>
