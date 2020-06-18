@@ -169,13 +169,26 @@ router.post("/:community_id/unsubscribe", middleware.isLoggedIn, (req, res) => {
   });
 });
 
-router.get("/:community_id/members", (req, res) => {
+router.get("/:community_id/members", middleware.isLoggedIn, (req, res) => {
+  Community.findById(req.params.community_id)
+    .populate({ path: "members" })
+    .exec((err, foundCommunity) => {
+      if (err) {
+        console.log(err);
+        res.redirect("back");
+      } else {
+        res.render("communities/members/show", { community: foundCommunity });
+      }
+    });
+});
+
+router.get("/:community_id/members/invite", (req, res) => {
   Community.findById(req.params.community_id, (err, foundCommunity) => {
     if (err) {
+      console.log(err);
       res.redirect("back");
     } else {
-      res.send("This is where the member list will be");
-      //res.render('communities/members/show');
+      res.send("This will be the member invite page.");
     }
   });
 });

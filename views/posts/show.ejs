@@ -103,14 +103,14 @@
                     class="dropdown-item"
                     href="/communities/<%= community._id %>/posts/<%= post._id %>/<%= comment._id %>/edit"
                   >
-                    Edit Post
+                    Edit Comment
                   </a>
                   <form
                     class="action-form"
                     action="/communities/<%= community._id %>/posts/<%= post._id %>/<%= comment._id %>?_method=DELETE"
                     method="POST"
                   >
-                    <button class="dropdown-item">Delete Post</button>
+                    <button class="dropdown-item">Delete Comment</button>
                   </form>
                 </div>
               </div>

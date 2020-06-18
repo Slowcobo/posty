@@ -1,0 +1,36 @@
+<%- include('../../partials/header') %> <%- include('../../partials/navbar') %>
+<div id="main" class="container">
+  <div class="row">
+    <%- include('../../partials/sidebarCommunity') %>
+    <div id="post-list" class="col">
+      <h5 class="d-inline">Members</h5>
+      <a
+        href="/communities/<%= community._id %>/members/invite"
+        class="btn btn-community"
+      >
+        Invite
+      </a>
+      <hr />
+
+      <% community.members.forEach(member => { %>
+      <div class="">
+        <div class="row">
+          <div class="col-1 avatar-post">
+            <img src="<%= member.avatar %>" />
+          </div>
+          <div class="col">
+            <div class="card post">
+              <div class="card-body">
+                <a href="/user/<%= member._id %>">
+                  <h5><%= member.username %></h5>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <% }); %>
+    </div>
+  </div>
+</div>
+<%- include('../../partials/footer') %>
