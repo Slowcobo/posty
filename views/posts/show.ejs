@@ -77,12 +77,12 @@
       <% post.replies.forEach(comment => { %>
       <div class="row">
         <div class="col-1 avatar-post">
-          <img class="" src="<%= post.author.avatar %>" />
+          <img class="" src="<%= comment.author.avatar %>" />
         </div>
         <div class="col">
           <div class="card">
             <div class="card-header">
-              <a href="/user/<%= post.author.id %>"
+              <a href="/user/<%= comment.author.id %>"
                 ><%= comment.author.username %></a
               >
 
